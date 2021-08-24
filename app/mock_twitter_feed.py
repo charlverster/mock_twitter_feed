@@ -24,7 +24,7 @@ def check_for_only_two_files(file_path):
             sys.exit()
         else:
             print(int(e))
-g
+
 if __name__ == '__main__':
     # Run the app
     path = get_path_to_input_files()
