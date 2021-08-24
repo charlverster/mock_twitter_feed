@@ -32,10 +32,21 @@ def read_text_file(file_path):
     else:
         return lines
 
+def get_users(lst):
+    """Accepts user_file_contents. Removes commas (',') and the word "follows". Compiles a list of all the unique user names"""
+    user_list = []
+    for elem in lst:
+        elem = elem.replace(',','')
+        elem_list = elem.split()            # Split element on spaces into a list
+        elem_list.remove("follows")     
+        user_list = user_list + elem_list   # Append lists
+    return tuple(set(user_list))     # Covert to set to remove duplicates then convert to tuple.
+
 if __name__ == '__main__':
     # Run the app
     input_path = get_path_to_input_files()
     files_to_read = check_for_only_two_files(input_path)
     user_file_contents = read_text_file(input_path + "/user.txt")
     tweet_file_contents = read_text_file(input_path + "/tweet.txt")
-    print(tweet_file_contents)
+    users = get_users(user_file_contents)
+    print(user_file_contents)
