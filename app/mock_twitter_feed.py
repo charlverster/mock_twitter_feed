@@ -13,14 +13,23 @@ def get_path_to_input_files():
         return path
 
 def check_for_only_two_files(file_path):
-    """Checks that working directory contains two files."""
+    """Checks that working directory contains two text files."""
     files = os.listdir(file_path)       # Generates a list of files in working dir
-    num_files = len(files)              # Counts files in list
+    files = [file for file in files if file.lower().endswith('.txt')] # Siphons out .txt files
+    num_files = len(files)             # Counts files in list
     if num_files != 2:
         raise ValueError(f"Expected 2 files, found {num_files}. Quiting program.")
+    else:
+        return files
+
+def read_text_file(path_to_file):
+    """Read 'users.txt' and returns dictionary of users and followees"""
+    with open(path_to_file,'r') as f:
+        lines = f.readlines()
+    print(lines)
 
 if __name__ == '__main__':
     # Run the app
     path = get_path_to_input_files()
-    check_for_only_two_files(path)
-
+    filenames = check_for_only_two_files(path)
+  

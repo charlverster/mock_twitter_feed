@@ -9,3 +9,6 @@ from mock_twitter_feed import * #app installed as package, import so its accessi
 #     path = "/Users/charlverster/Documents/GitHub/mock_twitter_feed/app/files"
 #     check_for_only_two_files(path) # Checks that directory only contains two text files
     # Works
+
+def test_read_text_file():
+    read_text_file()
