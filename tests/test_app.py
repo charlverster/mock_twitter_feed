@@ -10,5 +10,9 @@ from mock_twitter_feed import * #app installed as package, import so its accessi
 #     check_for_only_two_files(path) # Checks that directory only contains two text files
     # Works
 
-def test_read_text_file():
-    read_text_file("/Users/charlverste/Documents/GitHub/mock_twitter_feed/app/mock_twitter_feed.py")
+# def test_read_text_file():
+#     read_text_file("/Users/charlverster/Documents/GitHub/mock_twitter_feed/app/mock_twitter_feed.py")
+    # Works
+
+def test_get_user():
+    get_users(['Ward follows Alan\n', 'Alan follows Martin\n', 'Ward follows Martin, Alan\n'])
