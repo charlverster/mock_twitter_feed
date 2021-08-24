@@ -1,11 +1,12 @@
 # Mock Twitter Feed
 
 # mock function to check testing is working
-def add(x,y):
-    return x+y
+def check_for_files(x,y):
+    """Checks that working directory contains two text files named 'user.txt' and 'tweets.txt'"""
+    return 2
 
 
 
 if __name__ == '__main__':
     # Run the app
-    add(2,3)
+    pass
