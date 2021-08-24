@@ -15,15 +15,9 @@ def get_path_to_input_files():
 def check_for_only_two_files(file_path):
     """Checks that working directory contains two files."""
     files = os.listdir(file_path)       # Generates a list of files in working dir
-              
-    try: 
-        len(files)       # Counts files in list
-    except ValueError as e:
-        if int(e) != 2:
-            print(f"Expected 2 files, found {num_of_files}. Quiting program.")
-            sys.exit()
-        else:
-            print(int(e))
+    num_files = len(files)              # Counts files in list
+    if num_files != 2:
+        raise ValueError(f"Expected 2 files, found {num_files}. Quiting program.")
 
 if __name__ == '__main__':
     # Run the app
