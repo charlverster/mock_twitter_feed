@@ -11,4 +11,4 @@ from mock_twitter_feed import * #app installed as package, import so its accessi
     # Works
 
 def test_read_text_file():
-    read_text_file()
+    read_text_file("/Users/charlverste/Documents/GitHub/mock_twitter_feed/app/mock_twitter_feed.py")
