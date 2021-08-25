@@ -16,3 +16,6 @@ from mock_twitter_feed import * #app installed as package, import so its accessi
 
 def test_get_user():
     get_users(['Ward follows Alan\n', 'Alan follows Martin\n', 'Ward follows Martin, Alan\n'])
+
+def test_get_followees():
+    get_followees()

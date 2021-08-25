@@ -42,6 +42,20 @@ def get_users(lst):
         user_list = user_list + elem_list   # Append lists
     return tuple(set(user_list))     # Covert to set to remove duplicates then convert to tuple.
 
+def get_user_followees(users,contents):
+    """Accepts a tuple of user name and the user_file_contents, then populates a dictionary with who each user follows in the format:
+    {user: [list of followees]}
+    """
+    user_followees = {user:[] for user in users}     # Dictionary containing list of followees for each user
+    for elem in contents:
+        elem = elem.replace(',','')
+        elem_list = elem.split()            # Split element on spaces into a list
+        elem_list.remove("follows")
+        username = elem_list[0]
+        if username in user_followees:
+            user_followees[username] = user_followees[username] + elem_list[1:] #Concatenates user_followee list with followees read from contents
+    return user_followees
+
 if __name__ == '__main__':
     # Run the app
     input_path = get_path_to_input_files()
@@ -49,4 +63,5 @@ if __name__ == '__main__':
     user_file_contents = read_text_file(input_path + "/user.txt")
     tweet_file_contents = read_text_file(input_path + "/tweet.txt")
     users = get_users(user_file_contents)
-    print(user_file_contents)
+    users_with_followees = get_user_followees(users, user_file_contents)
+    print(users_with_followees)
