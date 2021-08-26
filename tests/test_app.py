@@ -14,8 +14,13 @@ from mock_twitter_feed import * #app installed as package, import so its accessi
 #     read_text_file("/Users/charlverster/Documents/GitHub/mock_twitter_feed/app/mock_twitter_feed.py")
     # Works
 
-def test_get_user():
-    get_users(['Ward follows Alan\n', 'Alan follows Martin\n', 'Ward follows Martin, Alan\n'])
+# def test_get_user():
+#     get_users(['Ward follows Alan\n', 'Alan follows Martin\n', 'Ward follows Martin, Alan\n'])
 
-def test_get_followees():
-    get_followees()
+def test_get_user_followees():
+    users = ['Martin', 'Ward', 'Alan']
+    user_file_contents = ['Ward follows Alan\n', 'Alan follows Martin\n', 'Ward follows Martin, Alan\n']
+    get_user_followees(users, user_file_contents)
+
+def test_get_tweets():
+    get_tweets()

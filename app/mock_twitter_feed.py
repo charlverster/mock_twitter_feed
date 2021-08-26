@@ -56,6 +56,9 @@ def get_user_followees(users,contents):
             user_followees[username] = user_followees[username] + elem_list[1:] #Concatenates user_followee list with followees read from contents
     return user_followees
 
+def get_tweets():
+    pass
+
 if __name__ == '__main__':
     # Run the app
     input_path = get_path_to_input_files()
@@ -64,4 +67,3 @@ if __name__ == '__main__':
     tweet_file_contents = read_text_file(input_path + "/tweet.txt")
     users = get_users(user_file_contents)
     users_with_followees = get_user_followees(users, user_file_contents)
-    print(users_with_followees)
