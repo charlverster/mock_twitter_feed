@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+    mysql_server:
+        container_name: mysqlserver
+        image: twitter_mysql_server
+        environment:
+          - MYSQL_ROOT_PASSWORD=twitter_password
+          - MYSQL_DATABASE=twitter
+        ports:
+            - 3306:3306
+        

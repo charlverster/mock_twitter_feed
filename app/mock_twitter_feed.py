@@ -56,8 +56,18 @@ def get_user_followees(users,contents):
             user_followees[username] = user_followees[username] + elem_list[1:] #Concatenates user_followee list with followees read from contents
     return user_followees
 
-def get_tweets():
-    pass
+def get_tweets(user,contents):
+    """Reads tweet_file_contents and saves output in dictionary as strings with format:
+    {user:tweet}
+    """
+    tweets = {}
+    tweet_order = 1                     # Number tweets starting at 1. This could also be datetime
+    for elem in contents:
+        elem = elem.replace('\n','')
+        elem_list = elem.split("> ")
+        elem_list.append(tweet_order)   # Append the tweet order
+        tweet_order += 1
+        print(elem_list)
 
 if __name__ == '__main__':
     # Run the app
@@ -67,3 +77,4 @@ if __name__ == '__main__':
     tweet_file_contents = read_text_file(input_path + "/tweet.txt")
     users = get_users(user_file_contents)
     users_with_followees = get_user_followees(users, user_file_contents)
+    get_tweets(users,tweet_file_contents)
