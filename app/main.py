@@ -78,9 +78,9 @@ def add_tweets_to_db(contents,db):
         db.insert_to_db(q)
 
 def print_twitter_histor(db):
-    result = db.query_db("SELECT * FROM users;") # Returns list of tuples
-    users = [_[0] for _ in result]         # Extract the first elements from the list of tuples
-    for user in users:
+    result = db.query_db("SELECT * FROM users;")    # Get all the users in the database. Returns list of tuples
+    users = [_[0] for _ in result]                  # Extract the first element (the username) from each tuple
+    for user in users:                              # Queries the database for each username in the list
         q = f"""
         WITH follower_posts AS
             (
@@ -113,11 +113,11 @@ def print_twitter_histor(db):
         ORDER BY
             post_id;
         """
-        posts = db.query_db(q)
-        print(user)
-        for line in posts:
-            user_who_posted = line[1]
-            post = line[2]
+        result = db.query_db(q)                          # Returns the query results
+        print(user)                                         
+        for elem in result:
+            user_who_posted = elem[1]
+            post = elem[2]
             print(f"\t@{user_who_posted}: {post}")
 
 if __name__ == '__main__':
@@ -142,20 +142,9 @@ if __name__ == '__main__':
     add_tweets_to_db(tweet_file_contents, db)
     add_followers_to_db(user_file_contents,db)
     print_twitter_histor(db)
-    
-     # Inserts username and post (tweet) into database. Post is truncated at 140 characters.
-    # result = db.query_db(q)
-    # print(key)
-    # for line in result:
-    #     post_id = line[0]
-    #     user = line[1]
-    #     post = line[2]
-    #     print(f"\t@{user}: {post}")
 
 #----------------------------------------------------------------
     db.insert_to_db("DELETE FROM posts WHERE post_id > 0;") # Purges posts table REMOVE!!
 #----------------------------------------------------------------
-    # result = db.query_db("SHOW TABLES;")
-    # print(result)
 
-    # db.close_connection()
+    db.close_connection()   # Close the connection to the database
