@@ -1,6 +1,7 @@
 # Mock Twitter Feed
 import os
 import sys
+from database import Database
 
 def get_path_to_input_files():
     """Gets path to folder where input files are expected."""
@@ -37,37 +38,87 @@ def get_users(lst):
     user_list = []
     for elem in lst:
         elem = elem.replace(',','')
-        elem_list = elem.split()            # Split element on spaces into a list
+        elem_list = elem.split()                # Split element on spaces into a list
         elem_list.remove("follows")     
-        user_list = user_list + elem_list   # Append lists
-    return tuple(set(user_list))     # Covert to set to remove duplicates then convert to tuple.
+        user_list = user_list + elem_list       # Append lists
+        user_list = list(set(user_list))        # Convert to set to remove duplicates, convert back to list
+        user_list.sort() # Sort                 # Sort alphabetically
+    return user_list
 
-def get_user_followees(users,contents):
-    """Accepts a tuple of user name and the user_file_contents, then populates a dictionary with who each user follows in the format:
-    {user: [list of followees]}
-    """
-    user_followees = {user:[] for user in users}     # Dictionary containing list of followees for each user
+#----------------------------------------------------------------
+
+def add_followers_to_db(contents, db):
+    """Accepts the user file contents, extracts the user and follows, and pushes that to the database."""
+
     for elem in contents:
         elem = elem.replace(',','')
         elem_list = elem.split()            # Split element on spaces into a list
         elem_list.remove("follows")
-        username = elem_list[0]
-        if username in user_followees:
-            user_followees[username] = user_followees[username] + elem_list[1:] #Concatenates user_followee list with followees read from contents
-    return user_followees
+        user = elem_list[0]
+        follows_user = elem_list[1:]
+        for elem in follows_user:
+            q = f"INSERT IGNORE INTO follows(username, follows_user) VALUES('{user}','{elem}');" # Inserts username and followee if it doesn't exist already
+            db.insert_to_db(q)
 
-def get_tweets(user,contents):
-    """Reads tweet_file_contents and saves output in dictionary as strings with format:
-    {user:tweet}
-    """
-    tweets = {}
-    tweet_order = 1                     # Number tweets starting at 1. This could also be datetime
+#----------------------------------------------------------------
+def add_users_to_db(users, db):
+    for user in users:
+        q = f"INSERT IGNORE INTO users VALUE('{user}');" # Inserts username only if it doesn't already exist
+        db.insert_to_db(q)
+
+
+def add_tweets_to_db(contents,db):
+    """Reads tweet_file_contents and pushes username and tweet to posts table in database."""
     for elem in contents:
         elem = elem.replace('\n','')
         elem_list = elem.split("> ")
-        elem_list.append(tweet_order)   # Append the tweet order
-        tweet_order += 1
-        print(elem_list)
+        user = elem_list[0]
+        post = elem_list[1]
+        q = f"INSERT INTO posts(username, post) VALUES('{user}','{post[:140]}');" # Inserts username and post (tweet) into database. Post is truncated at 140 characters.
+        db.insert_to_db(q)
+
+def print_twitter_histor(db):
+    result = db.query_db("SELECT * FROM users;") # Returns list of tuples
+    users = [_[0] for _ in result]         # Extract the first elements from the list of tuples
+    for user in users:
+        q = f"""
+        WITH follower_posts AS
+            (
+            SELECT
+                posts.*
+            FROM
+                posts 
+                JOIN follows ON follows.follows_user = posts.username
+            WHERE
+                follows.username = '{user}'
+            ),
+        user_posts AS
+            (
+            SELECT
+                *
+            FROM 
+                posts
+            WHERE
+                posts.username = '{user}'
+            )
+        SELECT
+            *
+        FROM
+            user_posts
+        UNION
+        SELECT
+            *
+        FROM
+            follower_posts
+        ORDER BY
+            post_id;
+        """
+        posts = db.query_db(q)
+        print(user)
+        for line in posts:
+            user_who_posted = line[1]
+            post = line[2]
+            print(f"\t@{user_who_posted}: {post}")
 
 if __name__ == '__main__':
     # Run the app
@@ -76,5 +127,35 @@ if __name__ == '__main__':
     user_file_contents = read_text_file(input_path + "/user.txt")
     tweet_file_contents = read_text_file(input_path + "/tweet.txt")
     users = get_users(user_file_contents)
-    users_with_followees = get_user_followees(users, user_file_contents)
-    get_tweets(users,tweet_file_contents)
+    
+
+    # Connect to database
+    db_user = 'db_engineer'
+    db_pwd = 'twitter_password'
+    db_host = 'localhost'
+    db_port = 3306
+    db_name = 'twitter'
+    db = Database(db_user,db_pwd,db_host,db_port,db_name)
+
+    # Insert users into Database
+    add_users_to_db(users, db)
+    add_tweets_to_db(tweet_file_contents, db)
+    add_followers_to_db(user_file_contents,db)
+    print_twitter_histor(db)
+    
+     # Inserts username and post (tweet) into database. Post is truncated at 140 characters.
+    # result = db.query_db(q)
+    # print(key)
+    # for line in result:
+    #     post_id = line[0]
+    #     user = line[1]
+    #     post = line[2]
+    #     print(f"\t@{user}: {post}")
+
+#----------------------------------------------------------------
+    db.insert_to_db("DELETE FROM posts WHERE post_id > 0;") # Purges posts table REMOVE!!
+#----------------------------------------------------------------
+    # result = db.query_db("SHOW TABLES;")
+    # print(result)
+
+    # db.close_connection()

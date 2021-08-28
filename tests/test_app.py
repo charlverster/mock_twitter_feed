@@ -1,4 +1,4 @@
-from mock_twitter_feed import * #app installed as package, import so its accessible to tests
+import app.main as main #app installed as package, import so its accessible to tests
 
 # def test_get_path_to_input_files():
 #     assert get_path_to_input_files() == "/Users/charlverster/Documents/GitHub/mock_twitter_feed/app/files"
@@ -20,7 +20,7 @@ from mock_twitter_feed import * #app installed as package, import so its accessi
 def test_get_user_followees():
     users = ['Martin', 'Ward', 'Alan']
     user_file_contents = ['Ward follows Alan\n', 'Alan follows Martin\n', 'Ward follows Martin, Alan\n']
-    get_user_followees(users, user_file_contents)
+    main.get_user_followees(users, user_file_contents)
 
 def test_get_tweets():
-    get_tweets()
+    main.get_tweets()
