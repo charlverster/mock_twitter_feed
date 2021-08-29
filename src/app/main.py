@@ -68,19 +68,21 @@ def print_twitter_feed(db):
             post = elem[2]
             print(f"\t@{user_who_posted}: {post}")
 
-def get_users_and_follows(path):
+def get_users_and_follows(path,filename):
     """Reads the user.txt file. Returns list of unique users and list formatted as [user,[list of users they follow]] """
-    contents = rd.read_file(path + "/user.txt"," ",[" follows",","])
+    contents = rd.read_file(path + "/" + filename," ",[" follows",","])
     users = [item for sublist in contents for item in sublist]              # Flatten list of lists into single list
     users = list(set(users))                                                # Convert to set to remove duplicates. Convert back to list.
     users.sort()    
     return users, contents
 
-def get_tweets(path):
+def get_tweets(path,filename):
     """Reads tweet.txt and returns contents as list with format [[user,tweet],[user,tweet],...]"""
-    return rd.read_file(path + "/tweet.txt","> ")
+    return rd.read_file(path + "/" + filename,"> ")
 
 if __name__ == '__main__':
+    user_file = rd.sys.argv[1]
+    tweet_file = rd.sys.argv[2]
     # Run the app
     input_path = rd.get_path_to_input_files()
     rd.check_for_only_two_files(input_path)
@@ -88,17 +90,17 @@ if __name__ == '__main__':
     # Connect to database
     db_user = 'db_engineer'
     db_pwd = 'twitter_password'
-    db_host = 'localhost' #mysqlserver
+    db_host = 'mysqlserver'
     db_port = 3306
     db_name = 'twitter'
     db = Database(db_user,db_pwd,db_host,db_port,db_name)
 
     # Users
-    users, follows = get_users_and_follows(input_path)   # Reads the user.txt file and return a list of unique usernames and list of users and who they follow.
+    users, follows = get_users_and_follows(input_path, user_file)   # Reads the user.txt file and return a list of unique usernames and list of users and who they follow.
     add_users_to_db(users, db)      # Insert users into Database
 
     # Tweets
-    tweets = get_tweets(input_path)
+    tweets = get_tweets(input_path, tweet_file)
     add_tweets_to_db(tweets, db)
 
     # Follows

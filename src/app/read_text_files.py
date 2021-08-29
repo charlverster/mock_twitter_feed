@@ -5,7 +5,7 @@ import sys
 def get_path_to_input_files():
     """Gets path to folder where input files are expected."""
     try:
-        path = os.getcwd() + "/app/files" # Relative path to working dir expected to contain input files
+        path = os.getcwd() + "/files" # Relative path to working dir expected to contain input files
     except OSError:
         print("Could not find the current working directory. Quiting program.")
         sys.exit()

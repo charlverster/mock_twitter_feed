@@ -9,6 +9,8 @@ services:
           - MYSQL_DATABASE=twitter
         ports:
             - 3306:3306
-        # healthcheck:
-        #   test: "/usr/bin/mysql --user=db_engineer --password=twitter_password --execute \"SHOW DATABASES;\""
-
+    ubuntu_container:
+        container_name: ubuntu_container
+        image: ubuntu_container
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t
