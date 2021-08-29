@@ -1,6 +1,0 @@
-README.md
-setup.py
-mock_twitter_feed.egg-info/PKG-INFO
-mock_twitter_feed.egg-info/SOURCES.txt
-mock_twitter_feed.egg-info/dependency_links.txt
-mock_twitter_feed.egg-info/top_level.txt
