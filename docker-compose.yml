@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-    mysql_server:
+    mysqlserver:
         container_name: mysqlserver
         image: twitter_mysql_server
         environment:
@@ -9,4 +9,6 @@ services:
           - MYSQL_DATABASE=twitter
         ports:
             - 3306:3306
-        
+        # healthcheck:
+        #   test: "/usr/bin/mysql --user=db_engineer --password=twitter_password --execute \"SHOW DATABASES;\""
+

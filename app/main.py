@@ -88,7 +88,7 @@ if __name__ == '__main__':
     # Connect to database
     db_user = 'db_engineer'
     db_pwd = 'twitter_password'
-    db_host = 'localhost'
+    db_host = 'localhost' #mysqlserver
     db_port = 3306
     db_name = 'twitter'
     db = Database(db_user,db_pwd,db_host,db_port,db_name)

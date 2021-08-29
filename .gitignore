@@ -6,3 +6,4 @@ app/__pycache__/main.cpython-39.pyc
 app/__pycache__/mock_twitter_feed.cpython-39.pyc
 app/__pycache__/read_text_files.cpython-39.pyc
 tests/__pycache__/test_app.cpython-39-pytest-6.2.4.pyc
+app/superseded/Dockerfile

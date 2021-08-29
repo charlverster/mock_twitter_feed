@@ -1,0 +1,19 @@
+attrs==21.2.0
+certifi==2021.5.30
+cffi==1.14.6
+cryptography==3.4.8
+greenlet==1.1.1
+iniconfig==1.1.1
+-e git+https://github.com/charlverster/mock_twitter_feed.git@730d1a4b793f4886ac97b27ed4d3eb2460658344#egg=mock_twitter_feed&subdirectory=app
+mysql-connector-python==8.0.26
+packaging==21.0
+pluggy==0.13.1
+protobuf==3.17.3
+py==1.10.0
+pycparser==2.20
+PyMySQL==1.0.2
+pyparsing==2.4.7
+pytest==6.2.4
+six==1.16.0
+SQLAlchemy==1.4.23
+toml==0.10.2
