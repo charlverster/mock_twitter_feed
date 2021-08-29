@@ -19,23 +19,29 @@ user
 
 ## Getting Started
 
-### Dependencies (TBC)
+### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+- This software requires Docker. Install Docker Desktop for your host machine from [the Docker website](https://www.docker.com/products/docker-desktop).
+- To combat [Works On My Machine](https://www.leadingagile.com/2017/03/works-on-my-machine/) the python app runs from a dockerized Ubuntu container. 
 
 ### Installing (TBC)
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+- Clone this repository.
+- Open the terminal and navigate to the `mysql_docker` folder. Build the dockerfile using `docker build -t mysqlserver .`
+- Navigate to the `src` folder and build ubuntu dockerfile `docker build -t ubuntu_container .`
+- Run `docker-compose up -d` to create docker containers in their own network
+- Run `docker exec -it ubuntu-container bash` to open a console within the ubuntu container.
+
+
+```
+python3 app/main.py user.txt tweet.txt
+```
+
 
 ### Executing program (TBC)
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+- Run the python app with `python3 app/main.py {user_file} {tweet_file}` where 
+    `{user_file}` is the text file containing the user data (such as `user.txt` in the example) and `{tweet_file}` is the text file containing the tweets (such as `tweet.txt` in the example).
 
 ## Help (TBC)
 
