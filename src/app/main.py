@@ -81,16 +81,15 @@ def get_tweets(path,filename):
     return rd.read_file(path + "/" + filename,"> ")
 
 if __name__ == '__main__':
-    user_file = rd.sys.argv[1]
-    tweet_file = rd.sys.argv[2]
+    user_file = rd.sys.argv[1] #'user2.txt' #
+    tweet_file = rd.sys.argv[2] # 'tweet2.txt' #
     # Run the app
     input_path = rd.get_path_to_input_files()
-    rd.check_for_only_two_files(input_path)
     
     # Connect to database
     db_user = 'db_engineer'
     db_pwd = 'twitter_password'
-    db_host = 'mysqlserver'
+    db_host = 'mysqlserver' 
     db_port = 3306
     db_name = 'twitter'
     db = Database(db_user,db_pwd,db_host,db_port,db_name)
@@ -110,7 +109,11 @@ if __name__ == '__main__':
     print_twitter_feed(db)
 
 #----------------------------------------------------------------
-    db.insert_to_db("DELETE FROM posts WHERE post_id > 0;") # Purges posts table REMOVE!!
+# Purge mysql database so program can be run again.
+#----------------------------------------------------------------
+    db.insert_to_db("""DELETE FROM posts WHERE post_id > 0;""")           # Purges posts table
+    db.insert_to_db("""DELETE FROM users WHERE username LIKE '%%';""")     # Purges users table. Python interprets % as the start of an arugment specifier. %% prevents this.
+    db.insert_to_db("""DELETE FROM follows WHERE username LIKE '%%';""")   # Purges follows table
 #----------------------------------------------------------------
     # Close the connection to the database
     db.close_connection()   
