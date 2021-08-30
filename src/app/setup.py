@@ -2,7 +2,8 @@ from distutils.core import setup
 from setuptools import find_packages
 
 setup(
-	name="mock_twitter_feed",
+	name="main",
 	version="0.0.1",
-	description="A simple mock twitter feed"
+	description="A simple mock twitter feed",
+	packages=find_packages()
 	)
