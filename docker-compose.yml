@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
     mysqlserver:
+        container_name: mysqlserver
         image: twitter_mysql_server
         environment:
           - MYSQL_ROOT_PASSWORD=twitter_password
@@ -10,6 +11,7 @@ services:
           - 3306:3306
 
     ubuntu_container:
+        container_name: ubuntu_container
         image: ubuntu_container
         volumes:
           - ./files:/usr/src/app/files      # Map the folder 'files' to equivalent folder inside container
