@@ -1,6 +1,0 @@
-Alan> If you have a procedure with 10 parameters, you probably missed some.
-Ward> There are only two hard things in Computer Science: cache invalidation, naming things and off-by-1 errors.
-Alan> Random numbers should not be generated with a method chosen at random.
-Charl> This is my tweet.
-Samantha> This is Sam's tweet.
-Charl> This is a very long tweet that is over 140 characters. It has multiple sentences and many many words. Look how long this tweet its. It should be cut off at the point where it exceeds 140 characters. 
