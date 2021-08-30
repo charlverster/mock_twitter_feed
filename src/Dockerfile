@@ -10,4 +10,4 @@ COPY . .
 # Install dependencies, specifcally python3 and pip3, then dependencies in requirements.txt
 RUN apt-get -y update && apt-get install -y python3
 RUN apt-get -y install python3-pip 
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt 
