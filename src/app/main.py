@@ -8,13 +8,13 @@ def add_followers_to_db(contents, db):
         user = elem[0]
         follows_user = elem[1:]
         for elem in follows_user:
-            q = f"INSERT IGNORE INTO follows(username, follows_user) VALUES('{user}','{elem}');" # Inserts username and followee if it doesn't exist already
+            q = f"""INSERT IGNORE INTO follows(username, follows_user) VALUES("{user}","{elem}");""" # Inserts username and followee if it doesn't exist already
             db.insert_to_db(q)
 
 #----------------------------------------------------------------
 def add_users_to_db(users, db):
     for user in users:
-        q = f"INSERT IGNORE INTO users VALUE('{user}');" # Inserts username only if it doesn't already exist
+        q = f"""INSERT IGNORE INTO users VALUE("{user}");""" # Inserts username only if it doesn't already exist
         db.insert_to_db(q)
 
 def add_tweets_to_db(contents,db):
@@ -22,11 +22,11 @@ def add_tweets_to_db(contents,db):
     for elem in contents:   
         user = elem[0]
         post = elem[1]
-        q = f"INSERT INTO posts(username, post) VALUES('{user}','{post[:140]}');" # Inserts username and post (tweet) into database. Post is truncated at 140 characters.
+        q = f"""INSERT INTO posts(username, post) VALUES("{user}","{post[:140]}");""" # Inserts username and post (tweet) into database. Post is truncated at 140 characters.
         db.insert_to_db(q)
 
 def print_twitter_feed(db):
-    result = db.query_db("SELECT * FROM users;")    # Get all the users in the database. Returns list of tuples
+    result = db.query_db("""SELECT * FROM users;""")    # Get all the users in the database. Returns list of tuples
     users = [_[0] for _ in result]                  # Extract the first element (the username) from each tuple
     for user in users:                              # Queries the database for each username in the list
         q = f"""
@@ -38,7 +38,7 @@ def print_twitter_feed(db):
                 posts 
                 JOIN follows ON follows.follows_user = posts.username
             WHERE
-                follows.username = '{user}'
+                follows.username = "{user}"
             ),
         user_posts AS
             (
@@ -47,7 +47,7 @@ def print_twitter_feed(db):
             FROM 
                 posts
             WHERE
-                posts.username = '{user}'
+                posts.username = "{user}"
             )
         SELECT
             *
@@ -82,7 +82,7 @@ def get_tweets(path,filename):
 
 if __name__ == '__main__':
     user_file = rd.sys.argv[1] #'user2.txt' #
-    tweet_file = rd.sys.argv[2] # 'tweet2.txt' #
+    tweet_file = rd.sys.argv[2] #'tweet2.txt' #
     # Run the app
     input_path = rd.get_path_to_input_files()
     
