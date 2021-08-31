@@ -11,15 +11,15 @@ def get_path_to_input_files():
     else:
         return path
 
-def read_file(file_name,split_on,drop_list=None):
+def read_file(file_path,split_on,drop_list=None):
     """Read file_name line by line. Split each line based on split_on argument and drop list items that equal items in the drop_list.
     drop_list is optional and defaults to None.
     Return a list containing list of the extracted data."""
     content = []            # Empty list to store contents of file being read
     try:          
-        file = open(file_name)
+        file = open(file_path)
     except FileNotFoundError:
-        print(f"File named '{file_name}' not found.")
+        print(f"File named '{file_path}' not found.")
         sys.exit()
     else:
         while (line := file.readline().rstrip()):

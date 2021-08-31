@@ -1,7 +1,0 @@
-Ward follows Alan
-Alan follows Martin
-Ward follows Martin, Alan
-Samantha
-Charl follows Samantha
-
-

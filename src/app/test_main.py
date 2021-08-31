@@ -1,13 +1,11 @@
 import unittest
 import main
-import database
 
 class TestGetMethods(unittest.TestCase):
     
     def setUp(self):
-        # Hardcoded test_files directory in ubuntu_docker container
+        # Test_files directory in ubuntu_docker container
         self.path = "/usr/src/app/test_files"
-        # self.path = "/Users/charlverster/Documents/GitHub/mock_twitter_feed/src/app/test_files"
         # Test filenames
         self.test_user_file = "test_user.txt"
         self.test_tweet_file = "test_tweet.txt"

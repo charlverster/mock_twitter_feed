@@ -55,15 +55,15 @@ def print_twitter_feed(user,posts):
         print(f"\t@{user_who_posted}: {post}")
 
 if __name__ == '__main__':
-    user_file = rd.sys.argv[1] #'test_user.txt' #
-    tweet_file = rd.sys.argv[2] #'test_tweet.txt' #
+    user_file = rd.sys.argv[1] 
+    tweet_file = rd.sys.argv[2] 
     # Run the app
     input_path = rd.get_path_to_input_files()
     
     # Connect to database
     db_user = 'db_engineer'
     db_pwd = 'twitter_password'
-    db_host = 'mysqlserver' #'localhost'#
+    db_host = 'mysqlserver'
     db_port = 3306
     db_name = 'twitter'
     db = Database(db_user,db_pwd,db_host,db_port,db_name)
@@ -128,5 +128,5 @@ if __name__ == '__main__':
     db.insert_to_db("""DELETE FROM users WHERE username LIKE '%%';""")     # Purges users table. Python interprets % as the start of an arugment specifier. %% prevents this.
     db.insert_to_db("""DELETE FROM follows WHERE username LIKE '%%';""")   # Purges follows table
 #----------------------------------------------------------------
-    # Close the connection to the database
-    db.close_connection()   
+    
+    db.close_connection()   # Close the connection to the database
