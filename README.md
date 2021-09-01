@@ -38,6 +38,17 @@ where:
 
 The user and tweet data is stored in a MySQL database that runs in a separate docker container. 
 
+# Strategy
+
+The objective was to read the input text files and extract only the relevant data. This data is then stored in a database, from where it can easily be extracted or manipulated. 
+
+The Python program and MySQL database run in separate containers. 
+
+## Assumptions
+- Every username is unique. Duplicates are assumed to be the same user. 
+- Usernames do not contain spectial characters.
+- Tweets are not unique. For example, a user may post identical tweets at different times. 
+
 ## Getting Started
 
 ### Dependencies
@@ -114,6 +125,7 @@ python3 app/test_main.py
 test_main.py
 test_read_text_files.py
 ```
+
 ## Authors
 
 Charl Verster\
