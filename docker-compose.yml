@@ -5,8 +5,8 @@ services:
         container_name: mysqlserver
         image: twitter_mysql_server
         environment:
-          - MYSQL_ROOT_PASSWORD=twitter_password
-          - MYSQL_DATABASE=twitter
+          - MYSQL_ROOT_PASSWORD=twitter_password  # Set the root login password
+          - MYSQL_DATABASE=twitter                # Create a database named 'twitter'
         ports:
           - 3306:3306
 
@@ -15,5 +15,5 @@ services:
         image: ubuntu_container
         volumes:
           - ./files:/usr/src/app/files      # Map the folder 'files' to equivalent folder inside container
-        stdin_open: true # docker run -i
-        tty: true        # docker run -t
+        stdin_open: true                    # Same as docker run -i
+        tty: true                           # Same as docker run -t
