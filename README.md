@@ -117,7 +117,7 @@ test_read_text_files.py
 ## Authors
 
 Charl Verster\
-Contact me at [email](mailto:verstercpf@gmail.com) or on [LinkedIn](https://www.linkedin.com/in/verstercpf/)
+Contact me on [email](mailto:verstercpf@gmail.com) or on [LinkedIn](https://www.linkedin.com/in/verstercpf/)
 
 ## Version History
 
