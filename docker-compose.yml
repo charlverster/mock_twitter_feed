@@ -3,7 +3,7 @@ version: "3.7"
 services:
     mysqlserver:
         container_name: mysqlserver
-        image: twitter_mysql_server
+        image: mysqlserver
         environment:
           - MYSQL_ROOT_PASSWORD=twitter_password  # Set the root login password
           - MYSQL_DATABASE=twitter                # Create a database named 'twitter'

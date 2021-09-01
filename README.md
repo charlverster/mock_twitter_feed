@@ -1,12 +1,24 @@
 # Mock Twitter Feed
 
-This Python program is a simple mock twitter feed, displayed in the console. 
+This is a Python program that imitates twitter and displayed a mock twitter feed in the console. 
 
 ## Description
 
-* The program looks for two text files inside the folder `files` in the working directory, named `user.txt` and `tweet.txt`.
+* The program looks for two text files inside the folder `files` in the working directory, such as `user.txt` and `tweet.txt`. 
 
-* `user.txt` containts a list of users and the people they follow. `tweet.txt` contains a list of tweets posted by the users. 
+* `user.txt` containts a list of users and the people they follow. 
+```
+Ward follows Alan
+Alan follows Martin
+Ward follows Martin, Alan
+```
+`tweet.txt` contains a list of tweets posted by the users. 
+```
+Alan> If you have a procedure with 10 parameters, you probably missed some.
+Ward> There are only two hard things in Computer Science: cache invalidation, naming things and off-by-1 errors.
+Alan> Random numbers should not be generated with a method chosen at random.
+
+```
 
 * The program extracts the list of users and tweets, and then prints to console each user's name, their tweets and their followers tweets in the format:
 
@@ -24,6 +36,8 @@ where:
 * Users are sorted alphabetically, and
 * Posts are sorted in the order they appear in the file.
 
+The user and tweet data is stored in a MySQL database that runs in a separate docker container. 
+
 ## Getting Started
 
 ### Dependencies
@@ -34,15 +48,18 @@ where:
 ### Installing
 
 - Clone this repository to your machine.
-- In your terminal, navigate to the `mysql_docker` folder. Build the dockerfile with:
+- In your terminal, navigate to the `mysql_docker` folder where the `Dockerfile` is and build the dockerfile with:
 ```
 docker build -t mysqlserver .
 ```
-- Navigate to the `src` folder and build Ubuntu dockerfile with:
+This builds the MySql docker image and runs the scripts inside the `mysql_docker/sql-scripts` folder to set up the MySQL database. 
+
+- In your terminal, navigate to the `src` folder where the `Dockerfile` is and build Ubuntu dockerfile with:
 ```
 docker build -t ubuntu_container .
 ```
-- Run the docker containers with:
+
+- In your terminal, navigate back to the main directory where the `docker-compose.yml` file is and run the docker containers with:
 ```
 docker-compose up -d
 ``` 
@@ -55,7 +72,8 @@ docker-compose up -d
 ```
 python3 app/main.py {user_file} {tweet_file}
 ```
--`{user_file}` is the text file containing the user data (such as `user.txt` in the example).
+where
+- `{user_file}` is the text file containing the user data (such as `user.txt` in the example).
 - `{tweet_file}` is the text file containing the tweets (such as `tweet.txt` in the example).
 
 ### Output
