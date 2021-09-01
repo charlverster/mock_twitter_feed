@@ -58,23 +58,35 @@ This builds the MySql docker image and runs the scripts inside the `mysql_docker
 ```
 docker build -t ubuntu_container .
 ```
+This builds a docker container running Ubuntu 20.04 and installs Python, as well as the program dependencies.
 
 - In your terminal, navigate back to the main directory where the `docker-compose.yml` file is and run the docker containers with:
 ```
 docker-compose up -d
 ``` 
-- The docker-compose file creates a folder `files` in the current working directory and maps it to the docker container. Place the `user.txt` and `tweet.txt` files you would like to use as input files in this directory. 
-- Sample files are included. 
+The docker-compose file maps `files` folder to the docker container. Different `user.txt` and `tweet.txt` files you would like to run can be placed in this folder.
+
+- Attached to the `ubuntu_container` with:
+```
+docker exec -it ubuntu_container bash
+```
+This should open something like:
+```
+root@a2b156afe8d9:/usr/src# 
+```
 
 ### Executing program
 
 - Run the python app with: 
 ```
-python3 app/main.py {user_file} {tweet_file}
+python3 app/main.py user_file tweet_file
 ```
 where
-- `{user_file}` is the text file containing the user data (such as `user.txt` in the example).
-- `{tweet_file}` is the text file containing the tweets (such as `tweet.txt` in the example).
+- `user_file` is the text file containing the user data (such as `user.txt` in the example).
+- `tweet_file` is the text file containing the tweets (such as `tweet.txt` in the example).
+- Note that the file extensions must be included.
+- The files can be named anything, provided there are no spaces or special characters. 
+- The program expects the `user_file` as the first argument and the `tweet_file` as the second argument.
 
 ### Output
 
@@ -89,10 +101,11 @@ Ward
         @Ward: There are only two hard things in Computer Science: cache invalidation, naming things and off-by-1 errors.
         @Alan: Random numbers should not be generated with a method chosen at random.
 ```
-## Unit test
+## Unit tests
 
-- Unit tests are included in the program. Unit tests are located in the `app` directory and prepended by `test_`.
-- Run unit tests by running the `test_*.py` files with python3. For example to run `test_main.py`:
+- Unit tests are included in the program.
+- Unit tests are located in the `app` directory and prepended by `test_`.
+- Run unit tests by running the `test_*.py` files with python3 inside the Ubuntu container. For example to run `test_main.py`:
 ```
 python3 app/test_main.py
 ```
@@ -114,6 +127,3 @@ Contact me at [email][mailto:verstercpf@gmail.com] or on [LinkedIn](https://www.
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
-## Acknowledgments
-
-This README.md is loosly based on [awesome-readme](https://github.com/matiassingers/awesome-readme).
