@@ -82,8 +82,8 @@ root@a2b156afe8d9:/usr/src#
 python3 app/main.py user_file tweet_file
 ```
 where
-- `user_file` is the text file containing the user data (such as `user.txt` in the example).
-- `tweet_file` is the text file containing the tweets (such as `tweet.txt` in the example).
+- `user_file` is the text file containing the user data (such as `user.txt`).
+- `tweet_file` is the text file containing the tweets (such as `tweet.txt`).
 - Note that the file extensions must be included.
 - The files can be named anything, provided there are no spaces or special characters. 
 - The program expects the `user_file` as the first argument and the `tweet_file` as the second argument.
@@ -117,7 +117,7 @@ test_read_text_files.py
 ## Authors
 
 Charl Verster\
-Contact me at [email][mailto:verstercpf@gmail.com] or on [LinkedIn](https://www.linkedin.com/in/verstercpf/)
+Contact me at [email](mailto:verstercpf@gmail.com) or on [LinkedIn](https://www.linkedin.com/in/verstercpf/)
 
 ## Version History
 
